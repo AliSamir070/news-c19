@@ -5,7 +5,7 @@ import 'package:news_c19/core/remote/network/api_manager.dart';
 import 'package:news_c19/core/resources/assets_manager.dart';
 import 'package:news_c19/core/resources/strings_manager.dart';
 import 'package:news_c19/model/category_model.dart';
-import 'package:news_c19/ui/articles/articles_widget.dart';
+import 'package:news_c19/ui/articles/articles_widget/articles_widget.dart';
 import 'package:news_c19/ui/categories/categories_widget.dart';
 import 'package:news_c19/ui/home/widgets/home_drawer.dart';
 
