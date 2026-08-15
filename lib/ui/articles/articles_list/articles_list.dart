@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:news_c19/core/remote/network/api_manager.dart';
 import 'package:news_c19/ui/articles/article_item.dart';
+import 'package:news_c19/ui/articles/articles_list/viewmodel/articles_list_view_model.dart';
 
 class ArticlesList extends StatefulWidget {
   String sourceId;
+
   ArticlesList(this.sourceId);
 
   @override
@@ -14,7 +17,40 @@ class ArticlesList extends StatefulWidget {
 class _ArticlesListState extends State<ArticlesList> {
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return BlocProvider(
+      create: (context) =>
+          ArticlesListViewModel()..fetchArticles(widget.sourceId),
+      child: BlocBuilder<ArticlesListViewModel,ArticlesListStates>(
+        builder: (context, state) {
+          switch(state){
+
+            case ArticlesListLoadingState():{
+              return Center(child: CircularProgressIndicator(),);
+            }
+            case ArticlesListSuccessState():{
+              var articles = state.articlesList;
+              if(articles.isEmpty){
+                return Center(child: Text("No articles found"),);
+              }
+              return ListView.separated(
+                  itemBuilder: (context, index) => ArticleItem(articles[index]),
+                  separatorBuilder: (context, index) => SizedBox(height: 24.h,),
+                  itemCount: articles.length
+              );
+            }
+            case ArticlesListErrorState():{
+              return Column(children: [
+                Text(state.message),
+                ElevatedButton(onPressed: () {
+                 BlocProvider.of<ArticlesListViewModel>(context).fetchArticles(widget.sourceId);
+                }, child: Text("Try Again"))
+              ],);
+            }
+          }
+        },
+      ),
+    )
+    /*FutureBuilder(
         future: ApiManager.getArticles(widget.sourceId),
         builder: (context, snapshot) {
           if(snapshot.connectionState == ConnectionState.waiting){
@@ -50,6 +86,7 @@ class _ArticlesListState extends State<ArticlesList> {
               separatorBuilder: (context, index) => SizedBox(height: 24.h,),
               itemCount: articlesList.length
           );
-        },);
+        },)*/
+    ;
   }
 }
