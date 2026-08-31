@@ -7,6 +7,7 @@ import 'package:news_c19/core/resources/strings_manager.dart';
 import 'package:news_c19/model/category_model.dart';
 import 'package:news_c19/ui/articles/articles_widget.dart';
 import 'package:news_c19/ui/categories/categories_widget.dart';
+import 'package:news_c19/ui/home/screen/searchScreen.dart';
 import 'package:news_c19/ui/home/widgets/home_drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -27,8 +28,12 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Text(selectedCategory!=null?selectedCategory!.title:StringsManager.home),
         actions: [
           IconButton(onPressed: () {
-
-          } , icon: SvgPicture.asset(AssetsManager.search))
+Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context)=>SearchScreen()),
+);
+          } , icon: SvgPicture.asset(AssetsManager.search)
+          )
         ],
       ),
       body: selectedCategory!=null?ArticlesWidget(category: selectedCategory!,):CategoriesWidget(selectCategory),

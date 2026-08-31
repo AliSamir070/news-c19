@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:news_c19/core/resources/app_constants.dart';
 import 'package:news_c19/model/articles_response/Articles_response.dart';
@@ -32,5 +34,18 @@ class ApiManager{
       print("Error : ${e.toString()}");
     }
  }
+  static Future<ArticlesResponse?> searchArticles(String query) async {
+    try {
+      var response = await dio.get("/v2/everything", queryParameters: {
+        "apiKey": AppConstants.apiKey,
+        "q": query,
+      });
 
+      ArticlesResponse articlesResponse = ArticlesResponse.fromJson(response.data);
+      return articlesResponse;
+    } catch (e) {
+      print("Error : ${e.toString()}");
+      return null;
+    }
+  }
 }

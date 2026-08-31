@@ -1,3 +1,3 @@
 abstract class AppConstants {
-  static const String apiKey = "d3e16e322c2e4c00b4b4f4967c290a7f";
+  static const String apiKey = "cdfac51f745d4845926eca7bb78b1c58";
 }
