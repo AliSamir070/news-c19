@@ -9,6 +9,8 @@ import 'package:news_c19/ui/articles/articles_widget.dart';
 import 'package:news_c19/ui/categories/categories_widget.dart';
 import 'package:news_c19/ui/home/widgets/home_drawer.dart';
 
+import '../../../core/resources/routes_manager.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -18,43 +20,44 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CategoryModel? selectedCategory;
+
   @override
   Widget build(BuildContext context) {
-    Person(gender: "M",age: 30,name: "Ahmed",friends: ["Said","Mohamed","Sara"]);
     return Scaffold(
       drawer: HomeDrawer(unSelectCategory),
       appBar: AppBar(
-        title: Text(selectedCategory!=null?selectedCategory!.title:StringsManager.home),
+        title: Text(
+          selectedCategory != null
+              ? selectedCategory!.title
+              : StringsManager.home,
+        ),
         actions: [
-          IconButton(onPressed: () {
-
-          } , icon: SvgPicture.asset(AssetsManager.search))
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(RoutesManager.search);
+            },
+            icon: SvgPicture.asset(AssetsManager.search),
+          ),
         ],
       ),
-      body: selectedCategory!=null?ArticlesWidget(category: selectedCategory!,):CategoriesWidget(selectCategory),
+      body: selectedCategory != null
+          ? ArticlesWidget(category: selectedCategory!)
+          : CategoriesWidget(selectCategory),
     );
   }
 
-  void selectCategory(CategoryModel newCategory){
+  void selectCategory(CategoryModel newCategory) {
     setState(() {
       selectedCategory = newCategory;
     });
   }
 
-  void unSelectCategory(){
+  void unSelectCategory() {
     Navigator.of(context).pop();
     setState(() {
       selectedCategory = null;
     });
   }
-}
-
-class Person{
-  String name;
-  int age;
-  String gender;
-  List<String> friends;
-  Person({required this.name,required this.friends,required this.gender,required this.age});
 }
 
 
