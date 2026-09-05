@@ -9,6 +9,8 @@ import 'package:news_c19/ui/articles/articles_widget.dart';
 import 'package:news_c19/ui/categories/categories_widget.dart';
 import 'package:news_c19/ui/home/widgets/home_drawer.dart';
 
+import '../../../core/resources/routes_manager.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -31,7 +33,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(RoutesManager.search);
+            },
             icon: SvgPicture.asset(AssetsManager.search),
           ),
         ],
@@ -56,16 +60,4 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class Person {
-  String name;
-  int age;
-  String gender;
-  List<String> friends;
 
-  Person({
-    required this.name,
-    required this.friends,
-    required this.gender,
-    required this.age,
-  });
-}

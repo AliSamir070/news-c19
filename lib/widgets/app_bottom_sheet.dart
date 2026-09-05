@@ -32,6 +32,7 @@ class AppBottomSheet {
   }) => showModalBottomSheet<T>(
     context: context,
 
+    backgroundColor:  Colors.transparent,
     elevation: elevation ?? 14,
     shape: shape,
     clipBehavior: clipBehavior,

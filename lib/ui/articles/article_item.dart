@@ -5,12 +5,12 @@ import 'package:news_c19/model/articles_response/Article.dart';
 import 'package:news_c19/widgets/app_bottom_sheet.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-import '../../core/resources/strings_manager.dart';
+import 'atricle_bottom_sheet.dart';
 
 class ArticleItem extends StatelessWidget {
-  Article article;
+  const ArticleItem(this.article, {super.key});
+ final Article article;
 
-  ArticleItem(this.article);
 
   @override
   Widget build(BuildContext context) {
@@ -78,77 +78,3 @@ class ArticleItem extends StatelessWidget {
   }
 }
 
-class ArticleBottomSheet extends StatelessWidget {
-  const ArticleBottomSheet({super.key, required this.article});
-
-  final Article article;
-
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(8.r),
-        child: Column(
-          mainAxisSize: .min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8.r),
-              child: CachedNetworkImage(
-                imageUrl: article.urlToImage ?? "",
-                height: 220.h,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Icon(
-                  Icons.error,
-                  color: Theme.of(context).colorScheme.primary,
-                  size: 40.sp,
-                ),
-              ),
-            ),
-            SizedBox(height: 8.h),
-            Text(
-              article.title ?? "",
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-            ),
-            SizedBox(height: 4.h),
-            Text(
-              article.description ?? "",
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).colorScheme.onPrimary,
-              ),
-              maxLines: 3,
-              overflow: TextOverflow.ellipsis,
-            ),
-            SizedBox(height: 8.h),
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.secondary,
-                minimumSize: Size(double.infinity, 56.h),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-              ),
-              child: Text(
-                StringsManager.viewAllArticle,
-                style: TextStyle(
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                  color: Theme.of(context).colorScheme.onSecondary,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

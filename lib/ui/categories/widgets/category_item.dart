@@ -9,26 +9,34 @@ class CategoryItem extends StatelessWidget {
   CategoryModel category;
   int index;
   void Function(CategoryModel) onCategoryClick;
-  CategoryItem(this.category,this.index,this.onCategoryClick);
+
+  CategoryItem(this.category, this.index, this.onCategoryClick);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-       onCategoryClick(category);
+        onCategoryClick(category);
       },
       child: Directionality(
-        textDirection: index.isOdd?TextDirection.rtl:TextDirection.ltr,
+        textDirection: index.isOdd ? TextDirection.rtl : TextDirection.ltr,
         child: Container(
           height: 198.h,
           clipBehavior: Clip.antiAlias,
+          padding: REdgeInsetsDirectional.only(end: 16.w),
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(24.r),
           ),
           child: Row(
             children: [
-              Expanded(child: Image.asset(category.imagePath,height: 198.h,fit: BoxFit.fill,)),
+              Expanded(
+                child: Image.asset(
+                  category.imagePath,
+                  height: 198.h,
+                  fit: BoxFit.fill,
+                ),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,26 +48,24 @@ class CategoryItem extends StatelessWidget {
                     ).textTheme.titleMedium?.copyWith(fontSize: 30.sp),
                   ),
                   Container(
-                    padding: REdgeInsetsDirectional.only(
-                      start: 16,
-
-                    ),
+                    padding: REdgeInsetsDirectional.only(start: 16),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      borderRadius: BorderRadius.circular(84.r)
+                      borderRadius: BorderRadius.circular(84.r),
                     ),
                     child: Row(
                       spacing: 10.w,
                       children: [
                         Text(
                           StringsManager.viewAll,
-                          style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                            fontWeight: FontWeight.w500,
-                          ),
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(fontWeight: FontWeight.w500),
                         ),
                         CircleAvatar(
                           radius: 27.r,
-                          backgroundColor: Theme.of(context).colorScheme.secondary,
+                          backgroundColor: Theme.of(
+                            context,
+                          ).colorScheme.secondary,
                           child: SvgPicture.asset(
                             AssetsManager.arrow,
                             matchTextDirection: true,
