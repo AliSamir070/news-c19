@@ -8,6 +8,7 @@ import 'package:news_c19/model/category_model.dart';
 import 'package:news_c19/ui/articles/articles_widget.dart';
 import 'package:news_c19/ui/categories/categories_widget.dart';
 import 'package:news_c19/ui/home/widgets/home_drawer.dart';
+import 'package:news_c19/ui/search/search_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -26,9 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text(selectedCategory!=null?selectedCategory!.title:StringsManager.home),
         actions: [
-          IconButton(onPressed: () {
-
-          } , icon: SvgPicture.asset(AssetsManager.search))
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const SearchScreen()),
+              );
+            },
+            icon: SvgPicture.asset(AssetsManager.search),
+          )
         ],
       ),
       body: selectedCategory!=null?ArticlesWidget(category: selectedCategory!,):CategoriesWidget(selectCategory),
