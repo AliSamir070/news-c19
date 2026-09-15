@@ -20,7 +20,7 @@ class ApiManager{
 
   //sources=bbc-sport
 
- static Future<ArticlesResponse?> getArticles(String sourceId)async{
+  static Future<ArticlesResponse?> getArticles(String sourceId)async{
     try{
       var response = await dio.get("/v2/everything",queryParameters: {
         "apiKey":AppConstants.apiKey,
@@ -31,6 +31,19 @@ class ApiManager{
     }catch(e){
       print("Error : ${e.toString()}");
     }
- }
+  }
+
+  static Future<ArticlesResponse?> searchArticles(String query) async {
+    try {
+      var response = await dio.get("/v2/everything", queryParameters: {
+        "apiKey": AppConstants.apiKey,
+        "q": query,
+      });
+      ArticlesResponse articlesResponse = ArticlesResponse.fromJson(response.data);
+      return articlesResponse;
+    } catch (e) {
+      print("Error : ${e.toString()}");
+    }
+  }
 
 }
