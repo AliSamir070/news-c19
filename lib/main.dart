@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_c19/core/DI/DI.dart';
 import 'package:news_c19/core/resources/app_theme.dart';
 import 'package:news_c19/core/resources/routes_manager.dart';
 import 'package:news_c19/ui/home/screen/home_screen.dart';
@@ -7,6 +8,7 @@ import 'package:news_c19/ui/home/screen/home_screen.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+  configureDependencies();
   runApp(const MyApp());
 }
 

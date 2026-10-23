@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:news_c19/core/DI/DI.dart';
 import 'package:news_c19/core/remote/network/api_manager.dart';
 import 'package:news_c19/core/resources/app_constants.dart';
-import 'package:news_c19/model/category_model.dart';
+import 'package:news_c19/data/datasource_impl/sources_api_dao_impl.dart';
+import 'package:news_c19/data/repository_impl/sources_repo_impl.dart';
 import 'package:news_c19/ui/articles/articles_list/articles_list.dart';
 import 'package:news_c19/ui/articles/articles_widget/viewmodel/articles_view_model.dart';
+
+import '../../../data/model/category_model.dart';
 
 class ArticlesWidget extends StatefulWidget {
   CategoryModel category;
@@ -19,8 +23,8 @@ class ArticlesWidget extends StatefulWidget {
 class _ArticlesWidgetState extends State<ArticlesWidget> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => ArticlesViewModel()..fetchSources(widget.category.id),
+    return BlocProvider( // DI ??
+      create: (context) => getIt.get<ArticlesViewModel>()..fetchSources(widget.category.id),
       child: BlocBuilder<ArticlesViewModel, ArticlesStates>(
         builder: (context, state) {
           switch(state){

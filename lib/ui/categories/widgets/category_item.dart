@@ -3,7 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:news_c19/core/resources/assets_manager.dart';
 import 'package:news_c19/core/resources/strings_manager.dart';
-import 'package:news_c19/model/category_model.dart';
+
+import '../../../data/model/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   CategoryModel category;

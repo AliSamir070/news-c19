@@ -1,15 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 import 'package:news_c19/core/remote/network/api_manager.dart';
-import 'package:news_c19/model/articles_response/Article.dart';
+import 'package:news_c19/repository/articles_repo.dart';
 
+import '../../../../data/model/articles_response/Article.dart';
+@injectable
 class ArticlesListViewModel extends Cubit<ArticlesListStates>{
-  ArticlesListViewModel():super(ArticlesListLoadingState());
-
+  ArticlesListViewModel(this.articlesRepo):super(ArticlesListLoadingState());
+  ArticlesRepo articlesRepo;
   fetchArticles(String sourceId)async{
     try{
       // loading
       emit(ArticlesListLoadingState());
-      var response = await ApiManager.getArticles(sourceId);
+      var response = await articlesRepo.fetchArticles(sourceId);
       if(response.status == "error"){
         // logic of server error
         emit(ArticlesListErrorState(response.message!));
